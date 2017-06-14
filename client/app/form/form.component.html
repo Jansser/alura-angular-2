@@ -1,0 +1,62 @@
+<div class="container">
+    <h1 class="text-center">{{photo.titulo}}</h1>
+    
+    <a *ngIf="message.length" class="alert alert-info">{{message}}</a>
+    
+    <form [formGroup]="form" class="row" (submit)="save($event)">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label>Título</label>
+                <input name="title" 
+                    formControlName="titulo"
+                    [(ngModel)]="photo.titulo"
+                    class="form-control"  
+                    autocomplete="off">    
+                
+                <div *ngIf="form.controls.titulo.invalid">
+                    <span *ngIf="form.controls.titulo.errors.required" class="form-control alert-danger">
+                        Título Obrigatório
+                    </span>
+
+                    <span *ngIf="form.controls.titulo.errors.minlength" class="form-control alert-danger">
+                        Deve ter no mínimo 4 caracteres
+                    </span>
+                </div>
+                
+            </div>
+            <div class="form-group">
+                <label>URL</label>
+                <input name="url"
+                    formControlName="url"
+                    [(ngModel)]="photo.url" 
+                    class="form-control"  
+                    autocomplete="off">
+                <span *ngIf="form.controls.url.invalid" class="form-control alert-danger">
+                    Url Obrigatória
+                </span>
+            </div>
+            <div class="form-group">
+                <label>Descrição</label>
+                <textarea name="description"
+                    formControlName="descricao"
+                    [(ngModel)]="photo.description" 
+                    class="form-control"  
+                    autocomplete="off">
+                </textarea>
+            </div>
+
+            <pre>{{form.invalid}}</pre>
+            <abutton name="Salvar" 
+                     type="submit" 
+                     style="btn-primary" 
+                     [disabled]="form.invalid">
+            </abutton>
+
+             <a [routerLink]="['']" class="btn btn-primary">Voltar</a>
+            <hr>
+        </div>
+        <div class="col-md-6">
+            <photo [url]="photo.url" [titulo]="photo.titulo"></photo>
+        </div>
+    </form>
+</div>
